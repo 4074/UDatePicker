@@ -1,10 +1,10 @@
 # UDatePicker
 
-A date picker widget written in Swift. Esay to use and set a custom style if you need.
+A date picker widget written in Swift. Easy to use and set a custom style if you need.
 
 ## Screenshot
 
-![screenshot](1.gif)
+![screenshot](Screenshot/1.gif)
 
 ## Installation
 
