@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name         = "DatePicker"
   spec.version      = "0.1.0"
-  spec.authors      = { "4074" => "never_wind@163.com" }
+  spec.authors      = { "4074" => "fourzerosevenfour@gmail.com" }
   spec.homepage     = "https://github.com/4074/UDatePicker.git"
   spec.summary      = "Simple DatePicker widget in Swift"
   spec.source       = { :git => "https://github.com/4074/UDatePicker.git" }
