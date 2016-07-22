@@ -1,9 +1,8 @@
 //
 //  DatePickerView.swift
-//  udata
 //
-//  Created by wen on 16/6/12.
-//  Copyright © 2016年 netease. All rights reserved.
+//  Created by 4074 on 16/6/12.
+//  Copyright © 2016年 4074. All rights reserved.
 //
 
 import UIKit
@@ -20,6 +19,7 @@ class UDatePicker: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .OverFullScreen
         
+        // init picker view
         let view = UDatePickerView(frame: frame)
         view.didDisappear = { date in
             if didDisappear != nil {
@@ -31,6 +31,7 @@ class UDatePicker: UIViewController {
         self.view = view
     }
     
+    // present the view controller
     internal func present(previous: UIViewController) {
         previous.presentViewController(self, animated: true, completion: nil)
     }
@@ -39,6 +40,7 @@ class UDatePicker: UIViewController {
         
         internal var didDisappear: ((NSDate?) -> Void)?
         
+        // current date be shown
         internal var date = NSDate() {
             didSet {
                 datePicker.setDate(date, animated: false)
@@ -47,19 +49,20 @@ class UDatePicker: UIViewController {
         
         internal var duration = 0.4
         
+        // height of views
         internal var height = (
             widget: CGFloat(248),
             picker: CGFloat(216),
             bar: CGFloat(32)
         )
         
+        // width of views
         internal var width = (
             button: CGFloat(56)
         )
         
-        internal let blankView = UIView()
-        
         internal let widgetView = UIView()
+        internal let blankView = UIView()
         internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
         
         internal let datePicker = UIDatePicker()
@@ -78,14 +81,14 @@ class UDatePicker: UIViewController {
         override func layoutSubviews() {
             let frame = self.frame
             
+            // reset frame of views
             widgetView.frame = CGRect(x: 0, y: frame.height - height.widget, width: frame.width, height: height.widget)
-            blurView.frame = CGRect(x: 0, y: 0, width: frame.width, height: height.bar)
-            
             blankView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - height.widget)
             
-            datePicker.frame = CGRect(x: 0, y: height.bar, width: frame.width, height: height.widget)
+            datePicker.frame = CGRect(x: 0, y: height.bar, width: frame.width, height: height.picker)
             
             barView.frame = CGRect(x: 0, y: 0, width: frame.width, height: height.bar)
+            blurView.frame = barView.frame
             doneButton.frame = CGRect(x: frame.width - width, y: 0, width: width, height: height.bar)
         }
         
@@ -93,19 +96,22 @@ class UDatePicker: UIViewController {
             
             self.addSubview(widgetView)
             
+            // blur view
             widgetView.addSubview(blurView)
             blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
             
+            // blank view
             self.addSubview(blankView)
             let tapBlankGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlankView))
             blankView.addGestureRecognizer(tapBlankGesture)
             
+            // date picker view
             widgetView.addSubview(datePicker)
             datePicker.datePickerMode = .Date
             datePicker.backgroundColor = UIColor.whiteColor()
 
+            // bar view and done button
             widgetView.addSubview(barView)
-            
             barView.addSubview(doneButton)
             doneButton.titleLabel?.font = UIFont.systemFontOfSize(16)
             doneButton.setTitle("Done", forState: .Normal)
