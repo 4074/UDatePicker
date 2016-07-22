@@ -17,7 +17,7 @@ class UDatePicker: UIViewController {
     
     init(frame: CGRect, didDisappear: ((NSDate?) -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
-        self.modalPresentationStyle = .OverFullScreen
+        self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
         
         // init picker view
         let view = UDatePickerView(frame: frame)
@@ -63,7 +63,7 @@ class UDatePicker: UIViewController {
         
         internal let widgetView = UIView()
         internal let blankView = UIView()
-        internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+        internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
         
         internal let datePicker = UIDatePicker()
         internal let barView = UIView()
