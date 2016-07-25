@@ -13,9 +13,9 @@ public class UDatePicker: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal var picker: UDatePickerView!
+    public var picker: UDatePickerView!
     
-    init(frame: CGRect, didDisappear: ((NSDate?) -> Void)? = nil) {
+    public init(frame: CGRect, didDisappear: ((NSDate?) -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
         
@@ -32,53 +32,53 @@ public class UDatePicker: UIViewController {
     }
     
     // present the view controller
-    internal func present(previous: UIViewController) {
+    public func present(previous: UIViewController) {
         previous.presentViewController(self, animated: true, completion: nil)
     }
     
-    internal class UDatePickerView: UIView {
+    public class UDatePickerView: UIView {
         
-        internal var didDisappear: ((NSDate?) -> Void)?
+        private var didDisappear: ((NSDate?) -> Void)?
         
         // current date be shown
-        internal var date = NSDate() {
+        public var date = NSDate() {
             didSet {
                 datePicker.setDate(date, animated: false)
             }
         }
         
-        internal var duration = 0.4
+        public var duration = 0.4
         
         // height of views
-        internal var height = (
+        public var height = (
             widget: CGFloat(248),
             picker: CGFloat(216),
             bar: CGFloat(32)
         )
         
         // width of views
-        internal var width = (
+        public var width = (
             button: CGFloat(56)
         )
         
-        internal let widgetView = UIView()
-        internal let blankView = UIView()
-        internal let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
+        public let widgetView = UIView()
+        public let blankView = UIView()
+        public let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
         
-        internal let datePicker = UIDatePicker()
-        internal let barView = UIView()
-        internal let doneButton = UIButton()
+        public let datePicker = UIDatePicker()
+        public let barView = UIView()
+        public let doneButton = UIButton()
         
         override init(frame: CGRect) {
             super.init(frame: frame)
             initView()
         }
         
-        required init?(coder aDecoder: NSCoder) {
+        required public init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
-        override func layoutSubviews() {
+        override public func layoutSubviews() {
             let frame = self.frame
             
             // reset frame of views
@@ -109,7 +109,7 @@ public class UDatePicker: UIViewController {
             widgetView.addSubview(datePicker)
             datePicker.datePickerMode = .Date
             datePicker.backgroundColor = UIColor.whiteColor()
-
+            
             // bar view and done button
             widgetView.addSubview(barView)
             barView.addSubview(doneButton)
