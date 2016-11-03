@@ -22,10 +22,11 @@ public class UDatePicker: UIViewController {
         // init picker view
         let view = UDatePickerView(frame: frame)
         view.didDisappear = { date in
-            if didDisappear != nil {
-                didDisappear!(date)
+            self.dismissViewControllerAnimated(true) {
+                if didDisappear != nil {
+                    didDisappear!(date)
+                }
             }
-            self.dismissViewControllerAnimated(true, completion: nil)
         }
         picker = view
         self.view = view
