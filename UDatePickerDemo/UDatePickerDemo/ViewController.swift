@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         if datePickerGroup[index] == nil {
             
             // init picker when it is nil
-            let picker = UDatePicker(frame: view.frame, didDisappear: {date in
+            let picker = UDatePicker(frame: view.frame, willDisappear: {date in
                 if let date = date {
                     self.dateGroup[index] = date
                     let dateFormatter = NSDateFormatter()

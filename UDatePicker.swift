@@ -15,17 +15,21 @@ public class UDatePicker: UIViewController {
     
     public var picker: UDatePickerView!
     
-    public init(frame: CGRect, didDisappear: ((NSDate?) -> Void)? = nil) {
+    public init(frame: CGRect, willDisappear: ((NSDate?) -> Void)? = nil, didDisappear: ((NSDate?) -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
         
         // init picker view
         let view = UDatePickerView(frame: frame)
         view.didDisappear = { date in
-            if didDisappear != nil {
-                didDisappear!(date)
+            if willDisappear != nil {
+                willDisappear!(date)
             }
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(true) {
+                if didDisappear != nil {
+                    didDisappear!(date)
+                }
+            }
         }
         picker = view
         self.view = view
@@ -56,10 +60,10 @@ public class UDatePicker: UIViewController {
             bar: CGFloat(32)
         )
         
-        // width of views
-        public var width = (
-            button: CGFloat(56)
-        )
+//        // width of views
+//        public var width = (
+//            button: CGFloat(56)
+//        )
         
         public let widgetView = UIView()
         public let blankView = UIView()
@@ -89,6 +93,9 @@ public class UDatePicker: UIViewController {
             
             barView.frame = CGRect(x: 0, y: 0, width: frame.width, height: height.bar)
             blurView.frame = barView.frame
+            
+            doneButton.sizeToFit()
+            let width = doneButton.frame.size.width + 15 /*padding*/
             doneButton.frame = CGRect(x: frame.width - width, y: 0, width: width, height: height.bar)
         }
         
