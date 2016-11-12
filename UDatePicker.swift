@@ -21,7 +21,7 @@ public class UDatePicker: UIViewController {
         
         // init picker view
         let view = UDatePickerView(frame: frame)
-        view.didDisappear = { date in
+        view.completion = { date in
             if willDisappear != nil {
                 willDisappear!(date)
             }
@@ -42,7 +42,7 @@ public class UDatePicker: UIViewController {
     
     public class UDatePickerView: UIView {
         
-        private var didDisappear: ((NSDate?) -> Void)?
+        private var completion: ((NSDate?) -> Void)?
         
         // current date be shown
         public var date = NSDate() {
@@ -59,11 +59,6 @@ public class UDatePicker: UIViewController {
             picker: CGFloat(216),
             bar: CGFloat(32)
         )
-        
-//        // width of views
-//        public var width = (
-//            button: CGFloat(56)
-//        )
         
         public let widgetView = UIView()
         public let blankView = UIView()
@@ -94,8 +89,9 @@ public class UDatePicker: UIViewController {
             barView.frame = CGRect(x: 0, y: 0, width: frame.width, height: height.bar)
             blurView.frame = barView.frame
             
+            // set button flexible width, with 16 padding
             doneButton.sizeToFit()
-            let width = doneButton.frame.size.width + 15 /*padding*/
+            let width = doneButton.frame.size.width + 16
             doneButton.frame = CGRect(x: frame.width - width, y: 0, width: width, height: height.bar)
         }
         
@@ -109,7 +105,7 @@ public class UDatePicker: UIViewController {
             
             // blank view
             self.addSubview(blankView)
-            let tapBlankGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBlankView))
+            let tapBlankGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleBlankView))
             blankView.addGestureRecognizer(tapBlankGesture)
             
             // date picker view
@@ -123,18 +119,18 @@ public class UDatePicker: UIViewController {
             doneButton.titleLabel?.font = UIFont.systemFontOfSize(16)
             doneButton.setTitle("Done", forState: .Normal)
             doneButton.setTitleColor(self.tintColor, forState: .Normal)
-            doneButton.addTarget(self, action: #selector(self.tapDoneButton), forControlEvents: .TouchUpInside)
+            doneButton.addTarget(self, action: #selector(self.handleDoneButton), forControlEvents: .TouchUpInside)
         }
         
-        func tapBlankView() {
-            if didDisappear != nil {
-                didDisappear!(nil)
+        func handleBlankView() {
+            if completion != nil {
+                completion!(nil)
             }
         }
         
-        func tapDoneButton() {
-            if didDisappear != nil {
-                didDisappear!(datePicker.date)
+        func handleDoneButton() {
+            if completion != nil {
+                completion!(datePicker.date)
             }
         }
     }

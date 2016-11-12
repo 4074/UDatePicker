@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     
     func showDatePicker() {
         if datePicker == nil {
-            datePicker = UDatePicker(frame: view.frame, didDisappear: { date in
+            datePicker = UDatePicker(frame: view.frame, willDisappear: { date in
                 if date != nil {
                     print("select date \(date)")
                 }
