@@ -7,17 +7,17 @@
 
 import UIKit
 
-public class UDatePicker: UIViewController {
+open class UDatePicker: UIViewController {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var picker: UDatePickerView!
+    open var picker: UDatePickerView!
     
-    public init(frame: CGRect, willDisappear: ((NSDate?) -> Void)? = nil, didDisappear: ((NSDate?) -> Void)? = nil) {
+    public init(frame: CGRect, willDisappear: ((Date?) -> Void)? = nil, didDisappear: ((Date?) -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
-        self.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+        self.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
         
         // init picker view
         let view = UDatePickerView(frame: frame)
@@ -25,7 +25,7 @@ public class UDatePicker: UIViewController {
             if willDisappear != nil {
                 willDisappear!(date)
             }
-            self.dismissViewControllerAnimated(true) {
+            self.dismiss(animated: true) {
                 if didDisappear != nil {
                     didDisappear!(date)
                 }
@@ -36,25 +36,25 @@ public class UDatePicker: UIViewController {
     }
     
     // present the view controller
-    public func present(previous: UIViewController) {
-        previous.presentViewController(self, animated: true, completion: nil)
+    open func present(_ previous: UIViewController) {
+        previous.present(self, animated: true, completion: nil)
     }
     
-    public class UDatePickerView: UIView {
+    open class UDatePickerView: UIView {
         
-        private var didDisappear: ((NSDate?) -> Void)?
+        fileprivate var didDisappear: ((Date?) -> Void)?
         
         // current date be shown
-        public var date = NSDate() {
+        open var date = Date() {
             didSet {
                 datePicker.setDate(date, animated: false)
             }
         }
         
-        public var duration = 0.4
+        open var duration = 0.4
         
         // height of views
-        public var height = (
+        open var height = (
             widget: CGFloat(248),
             picker: CGFloat(216),
             bar: CGFloat(32)
@@ -65,13 +65,13 @@ public class UDatePicker: UIViewController {
 //            button: CGFloat(56)
 //        )
         
-        public let widgetView = UIView()
-        public let blankView = UIView()
-        public let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
+        open let widgetView = UIView()
+        open let blankView = UIView()
+        open let blurView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.extraLight))
         
-        public let datePicker = UIDatePicker()
-        public let barView = UIView()
-        public let doneButton = UIButton()
+        open let datePicker = UIDatePicker()
+        open let barView = UIView()
+        open let doneButton = UIButton()
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -82,7 +82,7 @@ public class UDatePicker: UIViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        override public func layoutSubviews() {
+        override open func layoutSubviews() {
             let frame = self.frame
             
             // reset frame of views
@@ -99,13 +99,13 @@ public class UDatePicker: UIViewController {
             doneButton.frame = CGRect(x: frame.width - width, y: 0, width: width, height: height.bar)
         }
         
-        private func initView() {
+        fileprivate func initView() {
             
             self.addSubview(widgetView)
             
             // blur view
             widgetView.addSubview(blurView)
-            blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             
             // blank view
             self.addSubview(blankView)
@@ -114,16 +114,16 @@ public class UDatePicker: UIViewController {
             
             // date picker view
             widgetView.addSubview(datePicker)
-            datePicker.datePickerMode = .Date
-            datePicker.backgroundColor = UIColor.whiteColor()
+            datePicker.datePickerMode = .date
+            datePicker.backgroundColor = UIColor.white
             
             // bar view and done button
             widgetView.addSubview(barView)
             barView.addSubview(doneButton)
-            doneButton.titleLabel?.font = UIFont.systemFontOfSize(16)
-            doneButton.setTitle("Done", forState: .Normal)
-            doneButton.setTitleColor(self.tintColor, forState: .Normal)
-            doneButton.addTarget(self, action: #selector(self.tapDoneButton), forControlEvents: .TouchUpInside)
+            doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            doneButton.setTitle("Done", for: UIControlState())
+            doneButton.setTitleColor(self.tintColor, for: UIControlState())
+            doneButton.addTarget(self, action: #selector(self.tapDoneButton), for: .touchUpInside)
         }
         
         func tapBlankView() {
