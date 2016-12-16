@@ -11,7 +11,12 @@ A date picker widget written in Swift. Easy to use and set a custom style if you
 #### CocoaPods
 
 ```
-pod "UDatePicker"
+pod 'UDatePicker'
+```
+
+For Swift 2.3 support please use [UDatePicker 0.1.2](https://github.com/4074/UDatePicker/tree/0.1.2)
+```
+pod 'UDatePicker' ~>'0.1.2'
 ```
 
 #### Manual
