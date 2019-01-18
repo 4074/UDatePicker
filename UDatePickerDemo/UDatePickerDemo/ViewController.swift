@@ -34,7 +34,7 @@ class ViewController: UIViewController {
             // create button
             let button = UIButton(frame: CGRect(x: 16, y: 90 * index + 90, width: 160, height: 36))
             button.backgroundColor = view.tintColor
-            button.setTitle("select a \(index == 2 ? "time": "date")", for: UIControlState())
+            button.setTitle("select a \(index == 2 ? "time": "date")", for: UIControl.State())
             button.addTarget(self, action: #selector(self.showDatePicker(_:)), for: .touchUpInside)
             button.layer.cornerRadius = 4
             button.layer.masksToBounds = true
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
                         dateFormatter.dateFormat = "h:mm a"
                     }
                     
-                    sender.setTitle(dateFormatter.string(from: date as Date), for: UIControlState())
+                    sender.setTitle(dateFormatter.string(from: date as Date), for: UIControl.State())
                 }
             })
             
@@ -70,9 +70,9 @@ class ViewController: UIViewController {
             case 1:
                 picker.picker.datePicker.maximumDate = Date()
                 picker.picker.datePicker.locale = Locale(identifier: "zh_CN")
-                picker.picker.doneButton.setTitle("完成", for: UIControlState())
+                picker.picker.doneButton.setTitle("完成", for: UIControl.State())
             case 2:
-                picker.picker.doneButton.setTitleColor(UIColor.red, for: UIControlState())
+                picker.picker.doneButton.setTitleColor(UIColor.red, for: UIControl.State())
                 picker.picker.datePicker.backgroundColor = UIColor.groupTableViewBackground
                 picker.picker.datePicker.datePickerMode = .time
                 picker.modalTransitionStyle = .flipHorizontal
