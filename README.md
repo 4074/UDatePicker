@@ -12,7 +12,7 @@ A date picker widget written in Swift. Easy to use and set a custom style if you
 
 ```ruby
 # for swift 4
-pod 'UDatePicker', ~>'1.1.0'
+pod 'UDatePicker', ~>'1.1.1'
 
 # for swift 3
 pod 'UDatePicker', ~>'1.0.0'
