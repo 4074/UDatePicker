@@ -118,8 +118,8 @@ open class UDatePicker: UIViewController {
             barView.addSubview(doneButton)
 
             doneButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            doneButton.setTitle("Done", for: UIControlState())
-            doneButton.setTitleColor(self.tintColor, for: UIControlState())
+            doneButton.setTitle("Done", for: UIControl.State())
+            doneButton.setTitleColor(self.tintColor, for: UIControl.State())
             doneButton.addTarget(self, action: #selector(self.handleDoneButton), for: .touchUpInside)
         }
         
